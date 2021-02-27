@@ -289,8 +289,8 @@ def doAClick1(channel):
 	if flowMeter1.enabled == True:
 		flowMeter1.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " poured"
-		twitter.update_status(status=message)
+#		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " poured"
+#x		twitter.update_status(status=message)
 
 
 # Beer 2, on Pin 24.
@@ -299,8 +299,8 @@ def doAClick2(channel):
 	if flowMeter2.enabled == True:
 		flowMeter2.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " poured"
-		twitter.update_status(status=message)
+#		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " poured"
+#		twitter.update_status(status=message)
 
 
 # Beer 3, on Pin 25.
@@ -309,8 +309,8 @@ def doAClick3(channel):
 	if flowMeter3.enabled == True:
 		flowMeter3.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " poured"
-		twitter.update_status(status=message)
+#		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " poured"
+#		twitter.update_status(status=message)
 
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
