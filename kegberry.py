@@ -21,6 +21,8 @@ from flowmeter import *
 from tempsensor import *
 from beerinfo import *
 
+from twitter import *
+from seekrits import *
 
 # GPIO Setup ===================================================================================================================
 GPIO.setmode(GPIO.BCM) # use real GPIO numbering
@@ -28,6 +30,14 @@ GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Left Tap, Beer 1
 GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap, Beer 2
 GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
+
+# twitter stuff
+t = Twitter( auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET) )
+def sendatweet(theTweet):
+  try:
+    t.statuses.update(status=theTweet)
+  except:
+    logging.warning('Error tweeting: ' + theTweet + "\n")
 
 
 # Initialize Pygame ============================================================================================================
@@ -274,6 +284,8 @@ def doAClick1(channel):
 	if flowMeter1.enabled == True:
 		flowMeter1.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
+		tweet = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " poured"
+		sendatweet(tweet)
 
 # Beer 2, on Pin 24.
 def doAClick2(channel):
@@ -281,6 +293,8 @@ def doAClick2(channel):
 	if flowMeter2.enabled == True:
 		flowMeter2.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
+                tweet = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " poured"
+                sendatweet(tweet)
 
 # Beer 3, on Pin 25.
 def doAClick3(channel):
@@ -288,6 +302,8 @@ def doAClick3(channel):
 	if flowMeter3.enabled == True:
 		flowMeter3.update(currentTime)
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
+                tweet = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " poured"
+                sendatweet(tweet)
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
