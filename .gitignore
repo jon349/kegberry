@@ -1,3 +1,4 @@
 auth.py
 flowMeterValues.txt
 *.pyc
+.gitignore
