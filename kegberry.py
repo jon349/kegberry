@@ -78,14 +78,14 @@ f.closed
 # Read Saved Values from volumealert.txt ++=================================================================================
 # check if low volume tweet has been sent
 with open(ALERTSENT,'r') as f:
-        lines = f.readlines()
+        lines = f.read().splitlines()
         flowMeter1.tweetsent = lines[0]
         flowMeter2.tweetsent = lines[1]
         flowMeter3.tweetsent = lines[2]
 f.closed
 
 # set volume to send low volume alert
-alertvolume = float(0.5)
+alertvolume = float(0.5) * 3.7854
 
 if flowMeter1.totalPour < alertvolume:
 	if flowMeter1.tweetsent == "N":
@@ -369,11 +369,11 @@ def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f.close()
 	f = open(ALERTSENT, 'w')
 	if flowMeter1.enabled == True:
-		f.write(flowMeter1.tweetsent + "\n")
+		f.write(flowMeter1.tweetsent) #+ "\n")
 	if flowMeter2.enabled == True:
-		f.write(flowMeter2.tweetsent + "\n")
+		f.write(flowMeter2.tweetsent) #+ "\n")
 	if flowMeter3.enabled == True:
-		f.write(flowMeter3.tweetsent + "\n")
+		f.write(flowMeter3.tweetsent) #+ "\n")
 	f.close()
 
 # Main Never Ending Loop =======================================================================================================
