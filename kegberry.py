@@ -87,23 +87,26 @@ f.closed
 # set volume to send low volume alert
 alertvolume = float(0.5) * 3.7854
 
-#if flowMeter1.totalPour < alertvolume:
-#	if flowMeter1.tweetsent == "N":
-#		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
-#		twitter.update_status(status=message)
-#		flowMeter1.tweetsent = "Y"
+if flowMeter1.totalPour < alertvolume:
+	if flowMeter1.tweetsent == "N":
+		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter1.tweetsent = "Y"
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
-#if flowMeter2.totalPour < alertvolume:
-#	if flowMeter2.tweetsent == "N":
-#		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
-#		twitter.update_status(status=message)
-#		flowMeter2.tweetsent = "Y"
+if flowMeter2.totalPour < alertvolume:
+	if flowMeter2.tweetsent == "N":
+		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter2.tweetsent = "Y"
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
-#if flowMeter3.totalPour < alertvolume:
-#	if flowMeter3.tweetsent == "N":
-#		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
-#		twitter.update_status(status=message)
-#		flowMeter3.tweetsent = "Y"
+if flowMeter3.totalPour < alertvolume:
+	if flowMeter3.tweetsent == "N":
+		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter3.tweetsent = "Y"
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Colors Setup =================================================================================================================
 # http://www.rapidtables.com/web/color/RGB_Color.htm
