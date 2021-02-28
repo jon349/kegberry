@@ -339,7 +339,7 @@ GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
-def sendtweets()
+def sendtweets():
 	if flowMeter1.totalPour < alertvolume:
 		if flowMeter1.tweetsent == "N":
 			message = "ALERT: " + flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
