@@ -36,6 +36,7 @@ def read_temp_raw():
 # read_temp ====================================================================================================================	
 def read_temp():
     lines = read_temp_raw()
+    print(lines[0].strip()[-3:])
     while lines[0].strip()[-3:] != 'YES':
         time.sleep(0.2)
         lines = read_temp_raw()
