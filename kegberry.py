@@ -373,11 +373,11 @@ def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f.close()
 	f = open(ALERTSENT, 'w')
 	if flowMeter1.enabled == True:
-		f.write(flowMeter1.tweetsent) #+ "\n")
+		f.write(flowMeter1.tweetsent) + "\n")
 	if flowMeter2.enabled == True:
-		f.write(flowMeter2.tweetsent) #+ "\n")
+		f.write(flowMeter2.tweetsent) + "\n")
 	if flowMeter3.enabled == True:
-		f.write(flowMeter3.tweetsent) #+ "\n")
+		f.write(flowMeter3.tweetsent) + "\n")
 	f.close()
 
 # Main Never Ending Loop =======================================================================================================
