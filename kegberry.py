@@ -87,26 +87,6 @@ f.closed
 # set volume to send low volume alert
 alertvolume = float(0.5) * 3.7854
 
-if flowMeter1.totalPour < alertvolume:
-	if flowMeter1.tweetsent == "N":
-		message = "ALERT: " + flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
-		twitter.update_status(status=message)
-		flowMeter1.tweetsent = "Y"
-		saveValues(flowMeter1, flowMeter2, flowMeter3)
-
-if flowMeter2.totalPour < alertvolume:
-	if flowMeter2.tweetsent == "N":
-		message = "ALERT: " + flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
-		twitter.update_status(status=message)
-		flowMeter2.tweetsent = "Y"
-		saveValues(flowMeter1, flowMeter2, flowMeter3)
-
-if flowMeter3.totalPour < alertvolume:
-	if flowMeter3.tweetsent == "N":
-		message = "ALERT: " + flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
-		twitter.update_status(status=message)
-		flowMeter3.tweetsent = "Y"
-		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Colors Setup =================================================================================================================
 # http://www.rapidtables.com/web/color/RGB_Color.htm
@@ -359,6 +339,27 @@ GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
+def sendtweets()
+	if flowMeter1.totalPour < alertvolume:
+		if flowMeter1.tweetsent == "N":
+			message = "ALERT: " + flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
+			twitter.update_status(status=message)
+			flowMeter1.tweetsent = "Y"
+			saveValues(flowMeter1, flowMeter2, flowMeter3)
+
+	if flowMeter2.totalPour < alertvolume:
+		if flowMeter2.tweetsent == "N":
+			message = "ALERT: " + flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
+			twitter.update_status(status=message)
+			flowMeter2.tweetsent = "Y"
+			saveValues(flowMeter1, flowMeter2, flowMeter3)
+
+	if flowMeter3.totalPour < alertvolume:
+		if flowMeter3.tweetsent == "N":
+			message = "ALERT: " + flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
+			twitter.update_status(status=message)
+			flowMeter3.tweetsent = "Y"
+			saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Erase & Save New Data to File +===============================================================================================
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
