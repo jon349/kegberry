@@ -303,11 +303,11 @@ def doAClick1(channel):
 	if flowMeter1.enabled == True:
 		flowMeter1.update(currentTime)
 #		saveValues(flowMeter1, flowMeter2, flowMeter3)
-		if flowMeter1.totalPour < alertvolume:
-			if flowMeter1.tweetsent == "N":
-				message = "ALERT: " + flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
-				twitter.update_status(status=message)
-				flowMeter1.tweetsent = "Y"
+#		if flowMeter1.totalPour < alertvolume:
+#			if flowMeter1.tweetsent == "N":
+#				message = "ALERT: " + flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
+#				twitter.update_status(status=message)
+#				flowMeter1.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Beer 2, on Pin 24.
@@ -316,11 +316,11 @@ def doAClick2(channel):
 	if flowMeter2.enabled == True:
 		flowMeter2.update(currentTime)
 #		saveValues(flowMeter1, flowMeter2, flowMeter3)
-		if flowMeter2.totalPour < alertvolume:
-			if flowMeter2.tweetsent == "N":
-				message = "ALERT: " + flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
-				twitter.update_status(status=message)
-				flowMeter2.tweetsent = "Y"
+#		if flowMeter2.totalPour < alertvolume:
+#			if flowMeter2.tweetsent == "N":
+#				message = "ALERT: " + flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
+#				twitter.update_status(status=message)
+#				flowMeter2.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Beer 3, on Pin 25.
@@ -328,11 +328,11 @@ def doAClick3(channel):
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
 	if flowMeter3.enabled == True:
 		flowMeter3.update(currentTime)
-		if flowMeter3.totalPour < alertvolume:
-			if flowMeter3.tweetsent == 0:
-				message = "ALERT: " + flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
-				twitter.update_status(status=message)
-				flowMeter3.tweetsent = "Y"
+#		if flowMeter3.totalPour < alertvolume:
+#			if flowMeter3.tweetsent == 0:
+#				message = "ALERT: " + flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
+#				twitter.update_status(status=message)
+#				flowMeter3.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
@@ -401,7 +401,7 @@ while True:
 		elif event.type == KEYUP and event.key == K_0:
 			flowMeter3.clear()
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
-
+	sendtweets()
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 		pint, mug, pilsner, weizen, tulip, snifter, goblet, teku, stange,
