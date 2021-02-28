@@ -52,6 +52,7 @@ pygame.init()
 # Read/Write File ==============================================================================================================
 FILENAME = 'flowMeterValues.txt'
 STARTVOL = 'startingvalues.txt'
+ALERTSENT = 'volumealert.txt'
 
 # Hide the Mouse ===============================================================================================================
 pygame.mouse.set_visible(False)
@@ -73,6 +74,36 @@ with open(FILENAME,'r') as f:
 	flowMeter2.totalPour = float(lines[1]) * 3.7854
 	flowMeter3.totalPour = float(lines[2]) * 3.7854
 f.closed
+
+# Read Saved Values from volumealert.txt ++=================================================================================
+# check if low volume tweet has been sent
+with open(ALERTSENT,'r') as f:
+        lines = f.readlines()
+        flowMeter1.tweetsent = lines[0]
+        flowMeter2.tweetsent = lines[1]
+        flowMeter3.tweetsent = lines[2]
+f.closed
+
+# set volume to send low volume alert
+alertvolume = float(0.5)
+
+if flowMeter1.totalPour < alertvolume:
+	if flowMeter1.tweetsent == "N":
+		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter1.tweetsent = "Y"
+
+if flowMeter2.totalPour < alertvolume:
+	if flowMeter2.tweetsent == "N":
+		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter2.tweetsent = "Y"
+
+if flowMeter3.totalPour < alertvolume:
+	if flowMeter3.tweetsent == "N":
+		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
+		twitter.update_status(status=message)
+		flowMeter3.tweetsent = "Y"
 
 # Colors Setup =================================================================================================================
 # http://www.rapidtables.com/web/color/RGB_Color.htm
@@ -288,30 +319,38 @@ def doAClick1(channel):
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
 	if flowMeter1.enabled == True:
 		flowMeter1.update(currentTime)
+#		saveValues(flowMeter1, flowMeter2, flowMeter3)
+		if flowMeter1.totalPour < alertvolume:
+			if flowMeter1.tweetsent == "N":
+				message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " remaining"
+				twitter.update_status(status=message)
+				flowMeter1.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-#		message = flowMeter1.getFormattedTotalPour() + " of " + beer1name + " poured"
-#x		twitter.update_status(status=message)
-
 
 # Beer 2, on Pin 24.
 def doAClick2(channel):
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
 	if flowMeter2.enabled == True:
 		flowMeter2.update(currentTime)
+#		saveValues(flowMeter1, flowMeter2, flowMeter3)
+		if flowMeter2.totalPour < alertvolume:
+			if flowMeter2.tweetsent == "N":
+				message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " remaining"
+				twitter.update_status(status=message)
+				flowMeter2.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-#		message = flowMeter2.getFormattedTotalPour() + " of " + beer2name + " poured"
-#		twitter.update_status(status=message)
-
 
 # Beer 3, on Pin 25.
 def doAClick3(channel):
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
 	if flowMeter3.enabled == True:
 		flowMeter3.update(currentTime)
+		if flowMeter3.totalPour < alertvolume:
+			if flowMeter3.tweetsent == 0:
+				message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " remaining"
+				twitter.update_status(status=message)
+				flowMeter3.tweetsent = "Y"
 		saveValues(flowMeter1, flowMeter2, flowMeter3)
-#		message = flowMeter3.getFormattedTotalPour() + " of " + beer3name + " poured"
-#		twitter.update_status(status=message)
-
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
@@ -328,7 +367,14 @@ def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	if flowMeter3.enabled == True:
 		f.write(flowMeter3.getFormattedTotalPour() + "\n")
 	f.close()
-
+	f = open(ALERTSENT, 'w')
+	if flowMeter1.enabled == True:
+		f.write(flowMeter1.tweetsent + "\n")
+	if flowMeter2.enabled == True:
+		f.write(flowMeter2.tweetsent + "\n")
+	if flowMeter3.enabled == True:
+		f.write(flowMeter3.tweetsent + "\n")
+	f.close()
 
 # Main Never Ending Loop =======================================================================================================
 while True:
