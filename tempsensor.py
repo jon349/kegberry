@@ -36,14 +36,14 @@ def read_temp_raw():
 # read_temp ====================================================================================================================	
 def read_temp():
 	lines = read_temp_raw()
+	print("foo")
+	print(lines)
+	print("bar")
 	if len(lines) != 0:
 		if lines[0].strip()[-3:] != 'YES':
 			time.sleep(0.2)
 			lines = read_temp_raw()
 		equals_pos = lines[1].find('t=')
-		print("foo")
-		print(lines)
-		print("bar")
 		if equals_pos != -1:
 			if lines is not None:
 				temp_string = lines[1][equals_pos+2:]
