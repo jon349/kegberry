@@ -38,6 +38,7 @@ def read_temp():
 	lines = read_temp_raw()
 	print("foo")
 	print(lines)
+	len(lines)
 	print("bar")
 	if lines is not None:
 		if len(lines) != 0:
