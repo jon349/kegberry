@@ -39,15 +39,18 @@ def read_temp():
 	print("foo")
 	print(lines)
 	print(len(lines))
+	if len(lines) != 0:
+		print("notzero")
+	if len(lines) == 0:
+		print("iszero")
 	print("bar")
-	if lines is not None:
-		if len(lines) != 0:
-			if lines[0].strip()[-3:] != 'YES':
-				time.sleep(0.2)
-				lines = read_temp_raw()
-			equals_pos = lines[1].find('t=')
-			if equals_pos != -1:
-				temp_string = lines[1][equals_pos+2:]
-				temp_c = float(temp_string) / 1000.0
-				temp_f = temp_c * 9.0 / 5.0 + 32.0
-				return temp_f  # add/change temp_c
+	if len(lines) != 0:
+		if lines[0].strip()[-3:] != 'YES':
+			time.sleep(0.2)
+			lines = read_temp_raw()
+		equals_pos = lines[1].find('t=')
+		if equals_pos != -1:
+			temp_string = lines[1][equals_pos+2:]
+			temp_c = float(temp_string) / 1000.0
+			temp_f = temp_c * 9.0 / 5.0 + 32.0
+			return temp_f  # add/change temp_c
