@@ -279,9 +279,9 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	# Kegerator Temps ===========================================================================================================
 	# Using Pin 4
 	# Left Justified	
-	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render("Kegerator Temp: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
-	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 575))
+#	screenfont = pygame.font.SysFont(None, 35)
+#	rendered = screenfont.render("Kegerator Temp: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
+#	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 575))
 			
 	
 	# Date / Time ==============================================================================================================
