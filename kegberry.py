@@ -85,7 +85,7 @@ with open(ALERTSENT,'r') as f:
 f.closed
 
 # set volume to send low volume alert
-alertvolume = float(0.5) * 3.7854
+alertvolume = float(0.6) * 3.7854
 
 
 # Colors Setup =================================================================================================================
